@@ -1,0 +1,28 @@
+{
+    "t1": {
+        "comment": "Секция с заголовком",
+        "title": "new section"
+    },
+    "n1": {
+        "comment": "Заметка с неполными данными",
+        "title": "new note",
+        "text": "",
+        "date": ""
+    },
+    "n2": {
+        "comment": "Заметка с полными данными",
+        "title": "new note",
+        "text": "text"
+    },
+    "notes": [{
+            "title": "note 1",
+            "text": "text 1",
+            "date": "2020-01-10T17:49:58.244Z"
+        },
+        {
+            "title": "note 2",
+            "text": "text 2",
+            "date": "2020-04-15T17:49:58.244Z"
+        }
+    ]
+}

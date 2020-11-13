@@ -1,0 +1,63 @@
+@import '../../colors.scss';
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: $background-modal;
+    &__inner {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 310px;
+        background-color: $white;
+        box-shadow: 0 4px 20px $black;
+        padding: 20px;
+    }
+    &__close {
+        position: absolute;
+        right: 20px;
+        top: 9px;
+        padding: 0;
+    }
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 18px;
+    &__item {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    &__label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    &__input {
+        padding: 4px 6px;
+        outline: none;
+    }
+    &__add-btn {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid $black;
+        &:disabled {
+            border-color: rgba(16, 16, 16, 0.3);
+        }
+    }
+}
+
+.form__input.ng-invalid.ng-touched,
+.form__input.ng-invalid:focus {
+    border: 2px solid $invalid;
+}
+
+.form__input.ng-valid.ng-touched,
+.form__input.ng-valid:focus {
+    border: 2px solid $valid;
+}

@@ -1,0 +1,7 @@
+<app-section *ngFor="let s of sections" [sectionId]="s.sectionId" (outRemoveSection)="removeSection($event)" cdkDrag>
+</app-section>
+<button class="btn btn__add-section" name="add-section-btn" (click)="addSection()">
+    <fa-icon class="icon icon__plus" [icon]="iconPlus"></fa-icon>
+</button>
+
+<ng-template #modalForSection></ng-template>

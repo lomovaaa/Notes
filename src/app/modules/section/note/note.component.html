@@ -1,0 +1,16 @@
+<h3 class="note__title" [attr.name]="'note-title'">
+    {{note.noteTitle}}</h3>
+<p class="note__content" [attr.name]="'note-text'">{{note.noteText}}</p>
+<div class="notes__bottom">
+    <p class="note__date" [attr.name]="'note-date-text'">{{note.noteDate | date: "dd.MM.yyyy, HH:mm"}}</p>
+    <div class="note__nav">
+        <button class="btn note__edit" type="button" aria-label="Редактировать" (click)="editNote()">
+                <fa-icon class="icon icon__edit" [icon]="iconEdit"></fa-icon>
+            </button>
+        <button class="btn note__delete" type="button" aria-label="Удалить" (click)="removeNote()">
+                <fa-icon class="icon icon__trash" [icon]="iconTrash"></fa-icon>
+        </button>
+    </div>
+</div>
+
+<ng-template #modalForNote></ng-template>

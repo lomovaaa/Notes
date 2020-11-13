@@ -1,0 +1,14 @@
+<div class="modal modal__add-section">
+    <div class="modal__inner">
+        <button class="btn modal__close" type="button" aria-label="Закрыть" name="close" (click)="closeModal.emit()">
+            <fa-icon [icon]="iconClose"></fa-icon>
+        </button>
+        <form class="form section-form" [formGroup]="form" novalidate (ngSubmit)="onSection()">
+            <div class="form__item">
+                <label class="form__label" for="section-title" name="description-title">Заголовок секции</label>
+                <input class="form__input section-form__input" id="section-title" name="title" formControlName="sectionTitle">
+            </div>
+            <button class="btn form__add-btn" [disabled]="form.invalid" type="submit" name="add">Добавить</button>
+        </form>
+    </div>
+</div>
