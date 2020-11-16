@@ -1,37 +1,49 @@
-import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import { ModalSectionComponent } from '../../modules/modal/modal-section/modal-section.component';
-import { DataService } from '../../services/data.service';
-import { ISection } from '../../modules/section/section/isection';
+import { ChangeDetectionStrategy, Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
+
+import { ModalSectionComponent } from '../../modules/modal/modal-section/modal-section.component';
+import { ISection } from '../../modules/section/section/isection';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss']
 })
-/**
- * Класс компонента контейнера.
- */
 export class ContainerComponent implements OnInit {
-  iconPlus = faPlus;
-  sections: ISection[] = [];
+  public icons = {
+    plus: faPlus
+  };
+  public showLangList = false;
+  public sections: ISection[] = [];
+
   @ViewChild('modalForSection', { read: ViewContainerRef }) container;
 
-  constructor(private dataService: DataService, private resolver: ComponentFactoryResolver) {}
+  constructor(private dataService: DataService, private resolver: ComponentFactoryResolver, private translate: TranslateService) {
+    translate.use('ru');
+  }
 
   ngOnInit(): void {
     this.update();
   }
 
+  public openLangList(): void {
+    this.showLangList = !this.showLangList;
+  }
+
+  public changeLang(lang: string): void {
+    this.translate.use(lang);
+    this.showLangList = !this.showLangList;
+  }
+
    /**
-    * Создание динамического компонента модального окна для добавления секции.
+    * Создает динамический компонент модального окна для добавления секции.
     */
-  addSection(): void {
+  public addSection(): void {
     this.container.clear();
     const modalFactory = this.resolver.resolveComponentFactory(ModalSectionComponent);
     const component = this.container.createComponent(modalFactory);
-
     component.instance.rename = false;
     component.instance.closeModal.subscribe( () => {
       this.container.clear();
@@ -42,8 +54,8 @@ export class ContainerComponent implements OnInit {
     });
   }
 
-  removeSection(id: number): void {
-    this.dataService.removeSection(id);
+  public deleteSection(id: number): void {
+    this.dataService.deleteSection(id);
     this.update();
   }
 

@@ -1,28 +1,36 @@
-import { Component, Input, Output, OnInit, EventEmitter, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentFactoryResolver,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { DataService } from '../../../services/data.service';
-import { INote } from './inote';
 import { ModalNoteComponent } from '../../modal/modal-note/modal-note.component';
+import { INote } from './inote';
 
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss']
 })
-/**
- * Класс комнопента заметки.
- */
 export class NoteComponent implements OnInit {
-  iconTrash = faTrashAlt;
-  iconEdit = faEdit;
+  public icons = {
+    trash: faTrashAlt,
+    edit: faEdit
+  };
+  public note: INote;
 
-  note: INote;
   @Input() sectionId: number;
   @Input() noteId: number;
-
-  @ViewChild('modalForNote', { read: ViewContainerRef }) containerModal;
   @Output() outRemoveNote = new EventEmitter<any>();
+  @ViewChild('modalForNote', { read: ViewContainerRef }) containerModal;
 
   constructor(private dataService: DataService, private resolver: ComponentFactoryResolver) { }
 
@@ -30,23 +38,21 @@ export class NoteComponent implements OnInit {
     this.note = this.dataService.getNote(this.sectionId, this.noteId);
   }
 
-  removeNote(): void {
+  public removeNote(): void {
     this.outRemoveNote.emit(this.note.noteId);
   }
 
   /**
-   * Создание динамического компонента модального окна для редактирования заметки.
+   * Создает динамический компонент модального окна для редактирования заметки.
    */
-  editNote(): void {
+  public editNote(): void {
     this.containerModal.clear();
     const modalFactoryNote = this.resolver.resolveComponentFactory(ModalNoteComponent);
     const modal = this.containerModal.createComponent(modalFactoryNote);
-
     modal.instance.sectionId = this.sectionId;
     modal.instance.noteId = this.note.noteId;
     modal.instance.edit = true;
     modal.instance.currNote = this.note;
-
     modal.instance.closeModal.subscribe(() => {
       this.containerModal.clear();
     });

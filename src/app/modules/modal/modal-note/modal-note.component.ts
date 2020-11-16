@@ -1,30 +1,37 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { TranslateService } from '@ngx-translate/core';
+
 import { DataService } from '../../../services/data.service';
 import { INote } from '../../section/note/inote';
 
 @Component({
   selector: 'app-modal-note',
   templateUrl: './modal-note.component.html',
-  styleUrls: ['./modal-note.component.scss']
+  styleUrls: ['./modal-note.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 /**
- * Класс компонента модального окна для заметки.
+ * Модальное окно.
+ * Используется для редактирования и добавления заметок.
  */
 export class ModalNoteComponent implements OnInit {
-  iconClose = faTimes;
+  public icons = {
+    close: faTimes
+  };
 
-  sectionId: number;
-  noteId: number;
-  edit: boolean;
-  currNote: INote;
+  public sectionId: number;
+  public noteId: number;
+  public edit: boolean;
+  public currNote: INote;
 
   @Output() closeModal = new EventEmitter<void>();
   @Output() submitForm = new EventEmitter<void>();
 
-  form: FormGroup;
-  constructor(private formBuilder: FormBuilder, private dataService: DataService) {
+  public form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private dataService: DataService, private translate: TranslateService) {
     this.form = formBuilder.group({
       noteTitle: new FormControl('', Validators.required),
       noteText: new FormControl('', Validators.required),
@@ -35,19 +42,41 @@ export class ModalNoteComponent implements OnInit {
   ngOnInit(): void {
     if (!this.edit) {
       this.form.patchValue({
-        noteDate: new Date()
+        noteDate: this.getDate(new Date())
       });
     }
     else {
       this.form.patchValue({
         noteTitle: this.currNote.noteTitle,
         noteText: this.currNote.noteText,
-        noteDate: this.currNote.noteDate
+        noteDate: this.getDate(this.currNote.noteDate)
       });
     }
   }
 
-  editDate(date: any): Date {
+  /**
+   * Обрабатывает событие отправки формы в зависимости от добавления или редактирования заметки.
+   */
+  public onNote(): void {
+    if (!this.edit) {
+      this.dataService.addNote(this.sectionId, {
+        title: this.form.value.noteTitle,
+        text: this.form.value.noteText,
+        date: this.toDate(this.form.value.noteDate)
+      });
+    }
+    else {
+      this.dataService.getNote(this.sectionId, this.noteId).noteTitle = this.form.value.noteTitle;
+      this.dataService.getNote(this.sectionId, this.noteId).noteText = this.form.value.noteText;
+      this.dataService.getNote(this.sectionId, this.noteId).noteDate = this.toDate(this.form.value.noteDate);
+    }
+    this.submitForm.emit();
+  }
+
+  /**
+   * Преобразует дату в объект Date.
+   */
+  private toDate(date: any): Date {
     if (typeof date === 'object') {
       return date;
     }
@@ -57,27 +86,9 @@ export class ModalNoteComponent implements OnInit {
   }
 
   /**
-   * Обрабатка события отправки формы. Редактирование и добавление новой заметки.
+   * Возвращает объект даты в формате YYYY-MM-DDTHH:mm UTC+3.
    */
-  onNote(): void {
-    if (!this.edit) {
-      // this.dataService.addNote(this.sectionId, {
-      //   noteId: this.dataService.setIdForNote(this.sectionId),
-      //   noteTitle: this.form.value.noteTitle,
-      //   noteText: this.form.value.noteText,
-      //   noteDate: this.editDate(this.form.value.noteDate)
-      // });
-      this.dataService.addNote(this.sectionId, {
-        title: this.form.value.noteTitle,
-        text: this.form.value.noteText,
-        date: this.editDate(this.form.value.noteDate)
-      });
-    }
-    else {
-      this.dataService.getNote(this.sectionId, this.noteId).noteTitle = this.form.value.noteTitle;
-      this.dataService.getNote(this.sectionId, this.noteId).noteText = this.form.value.noteText;
-      this.dataService.getNote(this.sectionId, this.noteId).noteDate = this.editDate(this.form.value.noteDate);
-    }
-    this.submitForm.emit();
+  private getDate(date: any): string {
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().substring(0, 16);
   }
 }

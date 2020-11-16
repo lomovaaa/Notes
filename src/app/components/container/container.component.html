@@ -1,7 +1,19 @@
-<app-section *ngFor="let s of sections" [sectionId]="s.sectionId" (outRemoveSection)="removeSection($event)" cdkDrag>
+<div class="languages">
+  <button class="btn languages__open-list" type="button" (click)="openLangList()">{{'language' | translate}}</button>
+  <ul class="languages__list" *ngIf="showLangList">
+    <li>
+      <button class="btn languages__change-btn" type="button" (click)="changeLang('ru')">Русский</button>
+    </li>
+    <li>
+      <button class="btn languages__change-btn" type="button" (click)="changeLang('en')">English</button>
+    </li>
+  </ul>
+</div>
+
+<app-section *ngFor="let s of sections" [sectionId]="s.sectionId" (outDeleteSection)="deleteSection($event)" cdkDrag>
 </app-section>
 <button class="btn btn__add-section" name="add-section-btn" (click)="addSection()">
-    <fa-icon class="icon icon__plus" [icon]="iconPlus"></fa-icon>
+  <fa-icon class="icon icon__plus" [icon]="icons.plus"></fa-icon>
 </button>
 
 <ng-template #modalForSection></ng-template>

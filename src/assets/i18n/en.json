@@ -1,5 +1,26 @@
 {
-    "app-title": "Notes",
-    "rename": "Rename",
-    "remove": "Remove"
+  "app-title": "Notes",
+  "language": "Change language",
+  "rename": "Rename",
+  "delete": "Delete",
+  "change-color": "Change color",
+  "sort": {
+    "title": "Sort by",
+    "subtitle": "date and time",
+    "old": "oldest first",
+    "new": "newest first"
+  },
+  "filter": {
+    "title": "Refine by",
+    "subtitle": "date",
+    "even": "even",
+    "uneven": "uneven"
+  },
+  "modal": {
+    "section-title": "Section title",
+    "note-title": "Title",
+    "note-text": "Text of the note",
+    "note-date": "Date",
+    "add": "Add"
+  }
 }

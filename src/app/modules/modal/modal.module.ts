@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { ModalSectionComponent } from './modal-section/modal-section.component';
 import { ModalNoteComponent } from './modal-note/modal-note.component';
+import { ModalSectionComponent } from './modal-section/modal-section.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ModalNoteComponent } from './modal-note/modal-note.component';
     CommonModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    TranslateModule
   ],
   exports: [
     ModalSectionComponent,

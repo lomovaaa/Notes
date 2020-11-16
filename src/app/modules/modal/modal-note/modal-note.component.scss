@@ -2,21 +2,21 @@
 @import '../modal.scss';
 .icon__plus,
 .icon__close {
-    stroke: $main-text;
-    color: $main-text;
-    font-size: 21px;
+  stroke: $main-text;
+  color: $main-text;
+  font-size: 21px;
 }
 
 .form__title {
-    width: 50%;
-    padding: 2px 4px;
-    outline: none;
+  width: 50%;
+  padding: 2px 4px;
+  outline: none;
 }
 
 .form__text {
-    resize: none;
-    outline: none;
-    width: 95%;
-    min-height: 135px;
-    padding: 2px 4px;
+  resize: none;
+  outline: none;
+  width: 95%;
+  min-height: 135px;
+  padding: 2px 4px;
 }

@@ -1,22 +1,22 @@
 <div class="modal modal__add-note">
-    <div class="modal__inner">
-        <button class="btn modal__close" type="button" aria-label="Закрыть" name="close" (click)="closeModal.emit()">
-            <fa-icon [icon]="iconClose"></fa-icon>
-        </button>
-        <form class="form note-form" [formGroup]="form" novalidate (ngSubmit)="onNote()">
-            <div class="form__item">
-                <label class="form__label" for="note-title" name="description-title">Заголовок</label>
-                <input class="form__input form__title" id="note-title" name="title" formControlName="noteTitle">
-            </div>
-            <div class="form__item">
-                <label class="form__label" for="note-text" name="description-text">Текст заметки</label>
-                <textarea class="form__input form__text" id="note-text" name="text" formControlName="noteText"></textarea>
-            </div>
-            <div class="form__item">
-                <label class="form__label" for="note-date" name="description-date">Дата</label>
-                <input class="form__input form__date" id="note-date" name="note-date" formControlName="noteDate">
-            </div>
-            <button class="btn form__add-btn" [disabled]="form.invalid" (click)="onNote()" name="add">Добавить</button>
-        </form>
-    </div>
+  <div class="modal__inner">
+    <button class="btn modal__close" type="button" aria-label="Закрыть" name="close" (click)="closeModal.emit()">
+    <fa-icon [icon]="icons.close"></fa-icon>
+  </button>
+    <form class="form note-form" [formGroup]="form" novalidate (ngSubmit)="onNote()">
+      <div class="form__item">
+        <label class="form__label" for="note-title" name="description-title">{{'modal.note-title' | translate}}</label>
+        <input class="form__input form__title" id="note-title" name="title" formControlName="noteTitle">
+      </div>
+      <div class="form__item">
+        <label class="form__label" for="note-text" name="description-text">{{'modal.note-text' | translate}}</label>
+        <textarea class="form__input form__text" id="note-text" name="text" formControlName="noteText"></textarea>
+      </div>
+      <div class="form__item">
+        <label class="form__label" for="note-date" name="description-date">{{'modal.note-date' | translate}}</label>
+        <input class="form__input form__date" id="note-date" type="datetime-local" name="note-date" formControlName="noteDate">
+      </div>
+      <button class="btn form__add-btn" [disabled]="form.invalid" (click)="onNote()" name="add">{{'modal.add' | translate}}</button>
+    </form>
+  </div>
 </div>

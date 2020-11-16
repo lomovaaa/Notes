@@ -44,14 +44,17 @@ describe('Сортировка и фильтрация заметок:', () => {
 
     it('Сортировка заметок по убыванию даты и времени', async () => {
         await page.getSortLabel().get(1).click();
+        browser.sleep(3000);
         expect(page.getDropdowMenu().isDisplayed()).toBeTruthy('Выпадающее меню закрылось');
         expect(await page.isCheckedElement(page.getSortRadioBtns().get(1))).toBe(true, 'Выбрана сортировка по возрастанию');
         expect(await page.isCheckedElement(page.getSortRadioBtns().get(0))).toBe(false);
+        browser.sleep(3000);
         expect(await page.checkSortMintoMax()).toBe(false, 'Заметки отсортированы по возрастанию');
     });
 
     it('Фильтрация только по четным датам', async () => {
         await page.getFilterLabel().get(0).click();
+        browser.sleep(3000);
         expect(page.getDropdowMenu().isDisplayed()).toBeTruthy('Выпадающее меню закрылось');
         expect(await page.isCheckedElement(page.getFilterCheckboxEven())).toBe(true, 'Выбрана фильтрация по нечетным датам');
         expect(await page.isCheckedElement(page.getFilterCheckboxUneven())).toBe(false);
@@ -61,6 +64,7 @@ describe('Сортировка и фильтрация заметок:', () => {
     it('Фильтрация только по нечетным датам', async () => {
         await page.getFilterLabel().get(0).click();
         await page.getFilterLabel().get(1).click();
+        browser.sleep(3000);
         expect(page.getDropdowMenu().isDisplayed()).toBeTruthy('Выпадающее меню закрылось');
         expect(await page.isCheckedElement(page.getFilterCheckboxEven())).toBe(false, 'Выбрана фильтрация по четным датам');
         expect(await page.isCheckedElement(page.getFilterCheckboxUneven())).toBe(true);
@@ -69,6 +73,7 @@ describe('Сортировка и фильтрация заметок:', () => {
 
     it('Фильтрация по четным и нечетным датам', async () => {
         await page.getFilterLabel().get(0).click();
+        browser.sleep(3000);
         expect(page.getDropdowMenu().isDisplayed()).toBeTruthy('Выпадающее меню закрылось');
         expect(await page.isCheckedElement(page.getFilterCheckboxEven())).toBe(true, 'Выбрана фильтрация по нечетным датам');
         expect(await page.isCheckedElement(page.getFilterCheckboxUneven())).toBe(true);
