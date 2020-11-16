@@ -60,7 +60,7 @@ describe('Добавление заметки:', () => {
         await page.getSubmitBtn().click();
         expect(page.getModalNoteComponent()?.isPresent()).toBeTruthy('Компонент модального окна отсутствует');
         expect(await page.isEnabledAddBtn()).toBe(false, 'Кнопка добавления в состоянии по умолчанию');
-        expect(page.getNotes().count()).toBe(0, 'Добавлена заметка с неполными данными');
+        expect( await page.getNotes().count()).toBe(0, 'Добавлена заметка с неполными данными');
     });
 
     it('Валидация формы с заполненными полями ввода.', async () => {

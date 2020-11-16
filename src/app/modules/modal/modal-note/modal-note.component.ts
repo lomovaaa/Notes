@@ -64,6 +64,7 @@ export class ModalNoteComponent implements OnInit {
         text: this.form.value.noteText,
         date: this.toDate(this.form.value.noteDate)
       });
+      console.log(this.toDate(this.form.value.noteDate));
     }
     else {
       this.dataService.getNote(this.sectionId, this.noteId).noteTitle = this.form.value.noteTitle;

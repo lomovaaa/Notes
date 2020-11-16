@@ -1,4 +1,4 @@
-import { ElementFinder, browser, by, element, WebElement, ElementArrayFinder } from 'protractor';
+import { ElementFinder, browser, by, element, WebElement, ElementArrayFinder, Key } from 'protractor';
 
 export class DropdownMenuPage {
     navigateTo(): Promise<unknown> {
@@ -64,7 +64,8 @@ export class DropdownMenuPage {
         await element(by.name('text')).clear();
         await element(by.name('text')).sendKeys(note.text);
         await element(by.name('note-date')).clear();
-        await element(by.name('note-date')).sendKeys(note.date);
+        await element(by.name('note-date')).sendKeys(note.date , Key.ARROW_RIGHT, note.time);
+        await browser.sleep(3000);
         await element(by.name('add')).click();
     }
 

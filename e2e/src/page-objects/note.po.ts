@@ -1,4 +1,4 @@
-import { ElementFinder, browser, by, element, WebElement, ElementArrayFinder } from 'protractor';
+import { ElementFinder, browser, by, element, WebElement, ElementArrayFinder, Key } from 'protractor';
 
 export class AddNotePage {
     navigateTo(): Promise<unknown> {
@@ -70,7 +70,7 @@ export class AddNotePage {
         await this.getTextField().clear();
         await this.getTextField().sendKeys(note.text);
         await this.getDateField().clear();
-        await this.getDateField().sendKeys(note.date);
+        await this.getDateField().sendKeys(note.date , Key.ARROW_RIGHT, note.time);
     }
 
     public async getTitleFieldValue(): Promise<string> {
